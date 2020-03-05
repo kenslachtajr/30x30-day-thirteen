@@ -1,0 +1,21 @@
+<div *ngIf="pet$ | async as pet" class="container-fixed container w-100">
+  <div class="card-wrapper">
+    <mat-card
+      class="d-flex justify-content-center flex-column align-items-center"
+    >
+      <mat-card-header>
+        <mat-card-title>
+          <p class="text-center">{{ pet.type }}</p>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <p class="text-center">{{ pet.description }}</p>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="goBackToCars()">
+          <mat-icon>reply</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="col-50">
+    <ngrx-pets-pets-list
+      [pets]="pets$ | async"
+      (selected)="selectPet($event)"
+      (deleted)="deletePet($event)"
+    ></ngrx-pets-pets-list>
+  </div>
+  <div class="col-50">
+    <ngrx-pets-pets-details
+      [form]="form"
+      [pet]="selectedPet"
+      (saved)="savePet($event)"
+      (cancelled)="resetPet()"
+    >
+    </ngrx-pets-pets-details>
+  </div>
+</div>
