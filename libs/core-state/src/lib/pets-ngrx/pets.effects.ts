@@ -7,6 +7,7 @@ import { map, tap } from 'rxjs/operators';
 import * as petsActions from './pets.actions';
 import { Pet, PetsService, NotifyService } from '@ngrx-pets/core-data';
 import { PetsPartialState } from './pets.reducer';
+import { PetsFacade } from './pets.facade';
 
 @Injectable()
 export class PetsEffect {
@@ -26,21 +27,21 @@ export class PetsEffect {
     })
   );
 
-  // loadPet$ = createEffect(() =>
-  //   this.dataPersistence.fetch(petsActions.loadPet, {
-  //     run: (
-  //       action: ReturnType<typeof petsActions.loadPet>,
-  //       state: PetsPartialState
-  //     ) => {
-  //       return this.petsService
-  //         .findOne(action.petId)
-  //         .pipe(map((pet: Pet) => petsActions.petLoaded({ pet })));
-  //     },
-  //     onError: (action: ReturnType<typeof petsActions.loadPet>, error) => {
-  //       this.notify.notification('Effect Error:', error);
-  //     }
-  //   })
-  // );
+  loadPet$ = createEffect(() =>
+    this.dataPersistence.fetch(petsActions.loadPet, {
+      run: (
+        action: ReturnType<typeof petsActions.loadPet>,
+        state: PetsPartialState
+      ) => {
+        return this.petsService
+          .findOne(action.pet)
+          .pipe(map((pet: Pet) => petsActions.petLoaded({ pet })));
+      },
+      onError: (action: ReturnType<typeof petsActions.loadPet>, error) => {
+        this.notify.notification('Effect Error:', error);
+      }
+    })
+  );
 
   selectPetOnLoad$ = createEffect(() =>
     this.dataPersistence.actions.pipe(
@@ -57,7 +58,10 @@ export class PetsEffect {
       ) => {
         return this.petsService
           .create(action.pet)
-          .pipe(map((pet: Pet) => petsActions.petCreated({ pet })));
+          .pipe(
+            map((pet: Pet) => petsActions.petCreated({ pet })),
+            tap(() => this.petsFacade.loadPets())
+            )
       },
       onError: (action: ReturnType<typeof petsActions.createPet>, error) => {
         this.notify.notification('Effect Error:', error);
@@ -102,6 +106,7 @@ export class PetsEffect {
     private actions$: Actions,
     private dataPersistence: DataPersistence<PetsPartialState>,
     private petsService: PetsService,
+    private petsFacade: PetsFacade,
     private notify: NotifyService
   ) {}
 }

@@ -15,7 +15,7 @@ export const petsLoaded = createAction(
 
 export const loadPet = createAction(
   '[PET] Load Pet',
-  props<{ petId: string | number }>()
+  props<{ pet: Pet }>()
 );
 
 export const petLoaded = createAction(

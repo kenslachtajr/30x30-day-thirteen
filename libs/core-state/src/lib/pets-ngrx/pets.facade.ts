@@ -17,9 +17,9 @@ export class PetsFacade {
   mutations$ = this.actions$.pipe(
     filter(
       (action: Action) =>
-      action.type === petsActions.createPet({} as any).type ||
-      action.type === petsActions.updatePet({} as any).type ||
-      action.type === petsActions.deletePet({} as any).type
+        action.type === petsActions.createPet({} as any).type ||
+        action.type === petsActions.updatePet({} as any).type ||
+        action.type === petsActions.deletePet({} as any).type
     )
   );
 
@@ -29,15 +29,15 @@ export class PetsFacade {
   ) {}
 
   selectPet(selectedPetId: string | number) {
-    this.dispatch(petsActions.petSelected({selectedPetId}));
+    this.dispatch(petsActions.petSelected({ selectedPetId }));
   }
 
   loadPets() {
     this.dispatch(petsActions.loadPets());
   }
 
-  loadPet(petId: string | number) {
-    this.dispatch(petsActions.loadPet({petId}));
+  loadPet(pet: Pet) {
+    this.dispatch(petsActions.loadPet({ pet }));
   }
 
   createPet(pet: Pet) {
@@ -45,14 +45,14 @@ export class PetsFacade {
   }
 
   updatePet(pet: Pet) {
-    this.dispatch(petsActions.updatePet({pet}));
+    this.dispatch(petsActions.updatePet({ pet }));
   }
 
   deletePet(pet: Pet) {
-    this.dispatch(petsActions.deletePet({pet}));
+    this.dispatch(petsActions.deletePet({ pet }));
   }
 
-  private dispatch (action: Action) {
+  private dispatch(action: Action) {
     this.store.dispatch(action);
   }
 }
