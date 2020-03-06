@@ -2,12 +2,12 @@
   <mat-card-header>
     <mat-card-title>
       <h1>
-        <span *ngIf="currentPet.id; else elseBlock">{{ originalTitle }}</span>
-        <ng-template #elseBlock>Select A Pet</ng-template>
+        <span *ngIf="form.value.id; else elseBlock">{{ originalTitle }}</span>
+        <ng-template #elseBlock>Select a pet</ng-template>
       </h1>
     </mat-card-title>
   </mat-card-header>
-  <form [formGroup]="form" (submit)="saved.emit(currentPet)">
+  <form [formGroup]="form" (submit)="saved.emit(form.value)">
     <mat-card-content>
       <mat-form-field class="full-width">
         <input
@@ -35,8 +35,15 @@
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
-      <button type="submit" [disabled]="form.invalid" mat-button color="primary">{{currentPet.id ? 'Save' : 'Create'}}</button>
-      <button type="button" mat-button (click)="cancelled.emit(currentPet)">
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        mat-button
+        color="primary"
+      >
+        {{ form.value.id ? 'Save' : 'Create' }}
+      </button>
+      <button type="button" mat-button (click)="cancelled.emit(form.value)">
         Cancel
       </button>
     </mat-card-actions>

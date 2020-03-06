@@ -40,12 +40,12 @@ export class PetsComponent implements OnInit {
   }
 
   createPet() {
-    this.notify.notification(`You have create ${this.form.value.model}`);
+    this.notify.notification(`You have create ${this.form.value.type}`);
     this.petsFacade.createPet(this.form.value);
   }
 
   updatePet() {
-    this.notify.notification(`You have updated ${this.form.value.title}`);
+    this.notify.notification(`You have updated ${this.form.value.type}`);
     this.petsFacade.updatePet(this.form.value);
   }
 
