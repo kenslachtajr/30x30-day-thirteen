@@ -30,7 +30,7 @@ const petsReducer = createReducer(
   on(petsActions.petsLoaded, (state, { pets }) =>
   petsAdapter.addAll(pets, {...state, isLoading: false})
   ),
-  on(petsActions.petDeleted, (state, {pet}) =>
+  on(petsActions.petUpdated, (state, {pet}) =>
   petsAdapter.upsertOne(pet, {...state, isLoading: false })
   ),
   on(petsActions.petDeleted, (state, { pet }) =>
